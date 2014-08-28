@@ -11,20 +11,61 @@
 #define ATAN_FULL_PREC 23 
 
 #define ASSERT(cond) if (cond) { cout << "Error in " << __FILE__ << " " << __func__ << " " << __LINE__ << "\n"; exit(1); } 
-class math_lib 
+class my_float
 { 
-  int add_prec;
-  int sub_prec;
-  int mul_prec;
-  int div_prec;
-  int sqrt_prec;
-  int atan_prec; 
+  float val;
 public: 
-  math_lib(int add_p = ADD_FULL_PREC, int sub_p = SUB_FULL_PREC, int mul_p = MUL_FULL_PREC, int div_p = DIV_FULL_PREC, int sqrt_p = SQRT_FULL_PREC, int atan_p = ATAN_FULL_PREC);
-  float add(float a, float b);
-  float sub(float a, float b);
-  float mul(float a, float b);
-  float div(float a, float b);
-  float squareroot(float a);
-  float arctangent(float a);
+  my_float() 
+  { 
+    val = 0.0; 
+  }
+  my_float(float x) 
+  { 
+    val = x; 
+  }
+  
+  my_float(const my_float &mf) 
+  { 
+    val = mf.val;
+  }
+  
+  void set_precisions(int add_p = ADD_FULL_PREC, int sub_p = SUB_FULL_PREC, int mul_p = MUL_FULL_PREC, int div_p = DIV_FULL_PREC, int sqrt_p = SQRT_FULL_PREC, int atan_p = ATAN_FULL_PREC);
+  
+  my_float operator+(const my_float &a);
+  my_float operator-(const my_float &a);
+  my_float operator*(const my_float &a);
+  my_float operator/(const my_float &a);
+  my_float operator-(void);
+  
+  my_float operator=(const my_float &mf)
+  {
+    val = mf.val; 
+  }
+  
+  my_float operator+=(const my_float &a);
+  my_float operator-=(const my_float &a);
+  my_float operator*=(const my_float &a);
+  my_float operator/=(const my_float &a);
+  
+  bool operator==(const my_float &a)
+  {
+    if (val == a.val)
+      return true;
+    else
+      return false;
+  }
+  
+  friend std::ostream &operator<<(std::ostream &output, const my_float &a)
+  {
+    output << "val = " << a.val;
+    return output;
+  }
+  
+  friend std::istream &operator>>(std::istream &input, my_float &a)
+  {
+    input >> a.val;
+    return input;
+  }
+  
+  float getVal(void) { return val; }
 };
