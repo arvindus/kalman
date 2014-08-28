@@ -11,6 +11,9 @@
 #define ATAN_FULL_PREC 23 
 
 #define ASSERT(cond) if (cond) { cout << "Error in " << __FILE__ << " " << __func__ << " " << __LINE__ << "\n"; exit(1); } 
+
+extern void set_precisions(int add_p, int sub_p, int mul_p, int div_p, int sqrt_p, int atan_p);
+
 class my_float
 { 
   float val;
@@ -22,6 +25,10 @@ public:
   my_float(float x) 
   { 
     val = x; 
+  }
+  my_float(double x) 
+  { 
+    val = (float)(x); 
   }
   
   my_float(const my_float &mf) 
@@ -46,6 +53,9 @@ public:
   my_float operator-=(const my_float &a);
   my_float operator*=(const my_float &a);
   my_float operator/=(const my_float &a);
+  
+  my_float sqrt(const my_float &a);
+  my_float atan
   
   bool operator==(const my_float &a)
   {
